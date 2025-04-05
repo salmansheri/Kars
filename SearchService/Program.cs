@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using MongoDB.Entities;
+using SearchService.Data;
 using SearchService.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,12 +25,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await DB.InitAsync("SearchDB", MongoClientSettings.FromConnectionString(builder.Configuration.GetConnectionString("MongoDbConnection"))); 
 
-await DB.Index<Item>()
-    .Key(i => i.Make, KeyType.Text)
-    .Key(i => i.Model, KeyType.Text)
-    .Key(i => i.Color, KeyType.Text)
-    .CreateAsync(); 
+try
+{
+    await DbInitializer.InitDb(app);
 
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Error initializing database: " + ex.Message);
+
+
+}
 app.Run();
