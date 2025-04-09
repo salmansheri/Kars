@@ -24,6 +24,8 @@ public class AuctionServiceHttpClient
             .Project(x => x.UpdatedAt.ToString())
             .ExecuteFirstAsync();
 
+        Console.WriteLine("hello salman" + lastUpdated); 
+
         return await _httpClient.GetFromJsonAsync<List<Item>>(_config["AuctionServiceUrl"] + "/api/auction?date=" + lastUpdated);
     }
 

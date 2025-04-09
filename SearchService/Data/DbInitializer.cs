@@ -12,7 +12,7 @@ public class DbInitializer
 
     public static async Task InitDb(WebApplication app)
     {
-        await DB.InitAsync("SearchDB", MongoClientSettings.FromConnectionString(app.Configuration.GetConnectionString("MongoDbConnection")));
+        await DB.InitAsync("SearchDB", MongoClientSettings.FromConnectionString(app.Configuration.GetConnectionString("MongodbConnection")));
 
         await DB.Index<Item>()
             .Key(i => i.Make, KeyType.Text)
@@ -40,7 +40,7 @@ public class DbInitializer
 
         var items = await httpClient.GetItemsForSearchDb();
 
-        Console.WriteLine(items.Count + "returned for auction service"); 
+        Console.WriteLine(items.Count + " returned for auction service"); 
 
         if (items.Count > 0) await DB.SaveAsync(items); 
     }
