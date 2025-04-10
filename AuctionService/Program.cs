@@ -1,8 +1,17 @@
 using AuctionService.Data;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddMassTransit(x => {
+    x.UsingRabbitMq((context, cfg) => 
+    {
+        cfg.ConfigureEndpoints(context); 
+    }
+    ); 
+}); 
 
 // Add services to the container.
 

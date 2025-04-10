@@ -1,4 +1,5 @@
 using System.Net;
+using MassTransit;
 using MongoDB.Driver;
 using MongoDB.Entities;
 using Polly;
@@ -9,6 +10,14 @@ using SearchService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddMassTransit(options => {
+    options.UsingRabbitMq((context, cfg) => {
+        cfg.ConfigureEndpoints(context); 
+    }); 
+}); 
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
 // Add services to the container.
 
 builder.Services.AddControllers();
