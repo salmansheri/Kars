@@ -40,8 +40,8 @@
                             
                           
 
-                            <a class="pb-2 d-block" asp-page="../Register/Index" asp-route-returnUrl="@Model.Input.ReturnUrl">
-                                New User? Register here
+                            <a class="pb-2 d-block" asp-page="../Login/Index" asp-route-returnUrl="@Model.Input.ReturnUrl">
+                                Already Registerd? Login Here
                             </a>
                             
                             <button class="btn btn-primary" name="Input.Button" value="login">Register</button>
@@ -50,6 +50,16 @@
 
                 </div>
 
+                @if(Model.RegisterSuccess)
+                {
+                    <div class="alert alert-success mt-2">
+                        <strong>
+                            Successfully Registered._ValidationSummary 
+                        </strong>
+                        You can now Login
+
+                    </div>
+                }
             </div>
         </div>
 

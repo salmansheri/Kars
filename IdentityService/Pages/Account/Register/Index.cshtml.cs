@@ -1,4 +1,4 @@
-using System.Security.Claims; 
+using System.Security.Claims;
 using Duende.IdentityModel;
 using IdentityService.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -12,12 +12,11 @@ namespace IdentityService.Pages.Account.Register
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-
-        private readonly UserManager<ApplicationUser> _userManager; 
+        private readonly UserManager<ApplicationUser> _userManager;
         public RegisterModel(UserManager<ApplicationUser> userManager)
         {
-            _userManager = userManager; 
-            
+            _userManager = userManager;
+
         }
 
         [BindProperty]
@@ -29,40 +28,40 @@ namespace IdentityService.Pages.Account.Register
         {
             Input = new RegisterViewModel
             {
-                ReturnUrl = returnUrl, 
-            }; 
+                ReturnUrl = returnUrl,
+            };
 
-            return Page(); 
+            return Page();
 
         }
 
         public async Task<IActionResult> OnPost()
         {
-            if (Input.Button != "register") return Redirect("~/"); 
+            if (Input.Button != "register") return Redirect("~/");
 
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
                     UserName = Input.Username,
                     Email = Input.Email,
                     EmailConfirmed = true,
-                }; 
+                };
 
-                var result = await _userManager.CreateAsync(user, Input.Password); 
+                var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                   await _userManager.AddClaimsAsync(user, new Claim[] {
+                    await _userManager.AddClaimsAsync(user, new Claim[] {
                     new Claim(JwtClaimTypes.Name, Input.FullName)
 
-                   }); 
+                   });
 
-                   RegisterSuccess = true; 
+                    RegisterSuccess = true;
                 }
             }
 
-            return Page(); 
+            return Page();
         }
     }
 }
