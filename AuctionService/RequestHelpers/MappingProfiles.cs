@@ -19,6 +19,7 @@ public class MappingProfiles: Profile
 
         
         CreateMap<Auction, AuctionUpdated>(); 
+        CreateMap<Auction, AuctionDeleted>(); 
         
     }
 

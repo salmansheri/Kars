@@ -131,13 +131,13 @@ namespace AuctionService.Controllers
 
             if (auction == null) return NotFound();
 
-            // TODO: check seller == username 
+             
 
             if (auction.Seller != User.Identity.Name) return Forbid();
 
             _context.Auctions.Remove(auction);
 
-            await _publishEndPoint.Publish(_mapper.Map<AuctionDeleted>(new { Id = auction.Id.ToString()})); 
+            await _publishEndPoint.Publish(new AuctionDeleted{ Id = auction.Id.ToString()}); 
             var result = await _context.SaveChangesAsync() > 0;
 
 
@@ -151,4 +151,6 @@ namespace AuctionService.Controllers
 
         }
     }
+
+    
 }
