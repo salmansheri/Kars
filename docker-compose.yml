@@ -24,6 +24,27 @@ services:
     networks:
       - rabbitnet
 
+  auction-svc: 
+    image: salman484/auction-svc:latest
+    build: 
+      context: .
+      dockerfile: AuctionService/Dockerfile
+
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMq__Host=rabbitmq
+      - ConnectionStrings__DefaultConnection=Server=postgres;Database=AuctionDB;User Id=postgres;Password=log
+      - IdentityServiceUrl=http://identity-svc
+
+    ports:
+      - 5003:80
+    depends_on:
+      - mongodb
+      - rabbitmq
+      
+
+
 networks:
   rabbitnet:
     driver: bridge      
