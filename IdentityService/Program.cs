@@ -19,9 +19,21 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
+    builder.Services.AddCors(options => {
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+             .WithOrigins("http://localhost:3000", "http://localhost:5003")
+            .AllowAnyHeader()
+            .AllowAnyMethod(); 
+    }); 
+}); 
+
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
+
+    app.UseCors("AllowFrontend"); 
 
     // this seeding is only for the template to bootstrap the DB and users.
     // in production you will likely want a different approach.

@@ -40,6 +40,16 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+             .WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod(); 
+    }); 
+}); 
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
     options.Authority = builder.Configuration["IdentityServiceUrl"]; 
     options.RequireHttpsMetadata = false; 
@@ -61,21 +71,27 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("AllowFrontend");
 
 app.MapControllers();
 
 
 
-try {
-    DbInitializer.InitDb(app); 
 
-} catch(Exception ex)
+
+try
 {
-    Console.WriteLine($"Error seeding data: {ex.Message}"); 
-    
+    DbInitializer.InitDb(app);
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error seeding data: {ex.Message}");
+
 }
 
 app.Run();
