@@ -15,8 +15,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
       <Header />
+      <main className="container mx-auto px-5 py-10">
+        <Outlet />
+      </main>
 
-      <Outlet />
       <TanStackRouterDevtools />
 
       <TanStackQueryLayout />
