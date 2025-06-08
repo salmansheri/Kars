@@ -1,4 +1,3 @@
-
 import AuctionCard from './AuctionCard'
 import { useSelectAuctions } from '@/hooks/use-select-auctions'
 
