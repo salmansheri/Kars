@@ -1,15 +1,28 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0@sha256:3fcf6f1e809c0553f9feb222369f58749af314af6f063f389cbd2f913b4ad556 AS build
-WORKDIR /App
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
-# Copy everything
-COPY . ./
-# Restore as distinct layers
-RUN dotnet restore
-# Build and publish a release
-RUN dotnet publish -o out
+WORKDIR /app
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:9.0@sha256:b4bea3a52a0a77317fa93c5bbdb076623f81e3e2f201078d89914da71318b5d8
-WORKDIR /App
-COPY --from=build /App/out .
-ENTRYPOINT ["dotnet", "DotNet.Docker.dll"]
+# Copy solution and project files
+COPY Kars.sln ./
+COPY ./SearchService/SearchService.csproj ./SearchService/
+COPY ./Contracts/Contracts.csproj ./Contracts/
+
+# Restore
+RUN dotnet restore ./SearchService/SearchService.csproj
+
+# Copy the rest of the source code
+COPY . .
+
+# Publish
+RUN dotnet publish ./SearchService/SearchService.csproj -c Release -o /app/publish
+
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+
+WORKDIR /app
+EXPOSE 80
+
+COPY --from=build /app/publish .
+
+ENTRYPOINT ["dotnet", "SearchService.dll"]
