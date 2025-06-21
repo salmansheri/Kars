@@ -44,6 +44,31 @@ services:
 
     networks:
       - rabbitnet
+
+  identity-svc:
+    image: salman484/identity-svc:latest 
+    build: 
+      context: .
+      dockerfile: IdentityService/Dockerfile
+
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=db:5432;Database=IdentityDB;User Id=postgres;Password=log
+      
+      
+    ports:
+      - 5001:80
+
+    depends_on:
+      - db
+
+    networks:
+      - rabbitnet
+      
+
+    
+
   db:
     image: postgres
     restart: always
