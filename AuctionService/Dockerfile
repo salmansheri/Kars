@@ -10,6 +10,8 @@ COPY ./Contracts/Contracts.csproj ./Contracts/
 # Restore
 RUN dotnet restore ./AuctionService/AuctionService.csproj
 
+
+
 # Copy the rest of the source code
 COPY . .
 

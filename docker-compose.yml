@@ -16,8 +16,10 @@ services:
       - 5198:80
 
     depends_on:
-      - db
-      - rabbitmq
+      db:
+          condition: service_healthy
+      rabbitmq:
+          condition: service_started
 
     networks:
       - rabbitnet
@@ -39,9 +41,11 @@ services:
       - 5017:80
 
     depends_on:
-      - mongodb
-      - rabbitmq
-
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    
     networks:
       - rabbitnet
 
@@ -61,8 +65,10 @@ services:
       - 5001:80
 
     depends_on:
-      - db
-
+      db:
+        condition: service_healthy
+    
+    
     networks:
       - rabbitnet
 
@@ -109,6 +115,12 @@ services:
 
     networks:
       - rabbitnet
+    
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   # adminer:
   #   image: adminer
@@ -134,12 +146,35 @@ services:
 
     networks:
       - rabbitnet
+    
+    
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mongosh",
+          "--quiet",
+          "127.0.0.1/test",
+          "--eval",
+          "'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
       - 5672:5672
       - 15672:15672
+    
+    healthcheck:
+      test: ["CMD","executable", "arg"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
     environment:
       RABBITMQ_DEFAULT_USER: guest
