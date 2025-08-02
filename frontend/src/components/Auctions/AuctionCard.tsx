@@ -1,13 +1,14 @@
 import { Link } from '@tanstack/react-router'
 import CountdownTimer from './CountdownTimer'
+import type { Auction } from '../../../types'
 
 interface AuctionCardProps {
-  auction: any,
+  auction: Auction,
   isLoading: boolean,
 }
 
 const AuctionCard = ({ auction, isLoading }: AuctionCardProps) => {
-  console.log('id: ', auction.id)
+
   return (
     <>
       <Link

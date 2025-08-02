@@ -1,4 +1,5 @@
 import AuctionCard from './AuctionCard'
+import type { Auction } from '../../../types'
 import { useSelectAuctions } from '@/hooks/use-select-auctions'
 
 export const Listings = () => {
@@ -14,11 +15,13 @@ export const Listings = () => {
     )
   }
 
+
+
   return (
     <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
 
 
-      {data?.results.map((auction: any) => (
+      {data?.results.map((auction: Auction) => (
             <AuctionCard isLoading={isLoading} key={auction.id} auction={auction} />
           ))}
     </div>
