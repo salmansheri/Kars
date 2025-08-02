@@ -3,12 +3,12 @@ import axios from 'axios'
 import type { Auction, PagedResult } from '../../types'
 import { BackendAppUrl } from '@/lib/util'
 
-export const useSelectAuctions = (pageSize: number) => {
+export const useSelectAuctions = (pageSize: number, page: number) => {
   return useQuery<PagedResult<Auction>>({
-    queryKey: ['auctions', pageSize],
+    queryKey: ['auctions', pageSize, page],
     queryFn: async () => {
       const response = await axios.get(
-        `${BackendAppUrl}/search?pageSize=${pageSize}`,
+        `${BackendAppUrl}/search?pageNumber=${page}&pageSize=${pageSize}`,
       )
 
       if (response.status !== 200) {

@@ -12,7 +12,9 @@ const AuctionCard = ({ auction, isLoading }: AuctionCardProps) => {
   return (
     <>
       <Link
-        to="/"
+
+        to={`/auction/$auctionId`}
+        params={{ auctionId: auction.id}}
         className="p-2 rounded-md bg-gray-200/20 backdrop-blur-md group"
       >
         <div className="relative w-full bg-gray-200 aspect-[16/10] rounded-lg overflow-hidden">

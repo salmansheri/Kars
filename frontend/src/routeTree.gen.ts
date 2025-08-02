@@ -12,12 +12,19 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuctionAuctionIdImport } from './routes/auction/$auctionId'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuctionAuctionIdRoute = AuctionAuctionIdImport.update({
+  id: '/auction/$auctionId',
+  path: '/auction/$auctionId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/auction/$auctionId': {
+      id: '/auction/$auctionId'
+      path: '/auction/$auctionId'
+      fullPath: '/auction/$auctionId'
+      preLoaderRoute: typeof AuctionAuctionIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auction/$auctionId': typeof AuctionAuctionIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auction/$auctionId': typeof AuctionAuctionIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/auction/$auctionId': typeof AuctionAuctionIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/auction/$auctionId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/auction/$auctionId'
+  id: '__root__' | '/' | '/auction/$auctionId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuctionAuctionIdRoute: typeof AuctionAuctionIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuctionAuctionIdRoute: AuctionAuctionIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/auction/$auctionId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/auction/$auctionId": {
+      "filePath": "auction/$auctionId.tsx"
     }
   }
 }

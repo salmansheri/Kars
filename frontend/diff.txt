@@ -1,139 +1,742 @@
-diff --git a/diff.txt b/diff.txt
-new file mode 100644
-index 0000000..e69de29
+diff --git a/frontend/bun.lock b/frontend/bun.lock
+index 4500abf..e76ec9f 100644
+--- a/frontend/bun.lock
++++ b/frontend/bun.lock
+@@ -5,6 +5,7 @@
+       "name": "frontend",
+       "dependencies": {
+         "@faker-js/faker": "^9.6.0",
++        "@radix-ui/react-slot": "^1.2.3",
+         "@tailwindcss/vite": "^4.0.6",
+         "@tanstack/match-sorter-utils": "^8.19.4",
+         "@tanstack/react-form": "^1.0.0",
+@@ -17,10 +18,14 @@
+         "@tanstack/router-plugin": "^1.114.3",
+         "@tanstack/store": "^0.7.0",
+         "axios": "^1.9.0",
++        "class-variance-authority": "^0.7.1",
++        "clsx": "^2.1.1",
++        "lucide-react": "^0.536.0",
+         "react": "^19.0.0",
+         "react-countdown": "^2.3.6",
+         "react-dom": "^19.0.0",
+         "react-icons": "^5.5.0",
++        "tailwind-merge": "^3.3.1",
+         "tailwindcss": "^4.0.6",
+         "zod": "^3.24.2",
+       },
+@@ -34,6 +39,7 @@
+         "@vitejs/plugin-react": "^4.3.4",
+         "jsdom": "^26.0.0",
+         "prettier": "^3.5.3",
++        "tw-animate-css": "^1.3.6",
+         "typescript": "^5.7.2",
+         "vite": "^6.1.0",
+         "vitest": "^3.0.5",
+@@ -202,6 +208,10 @@
+ 
+     "@nodelib/fs.walk": ["@nodelib/fs.walk@1.2.8", "", { "dependencies": { "@nodelib/fs.scandir": "2.1.5", "fastq": "^1.6.0" } }, "sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg=="],
+ 
++    "@radix-ui/react-compose-refs": ["@radix-ui/react-compose-refs@1.1.2", "", { "peerDependencies": { "@types/react": "*", "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-z4eqJvfiNnFMHIIvXP3CY57y2WJs5g2v3X0zm9mEJkrkNv4rDxu+sg9Jh8EkXyeqBkB7SOcboo9dMVqhyrACIg=="],
++
++    "@radix-ui/react-slot": ["@radix-ui/react-slot@1.2.3", "", { "dependencies": { "@radix-ui/react-compose-refs": "1.1.2" }, "peerDependencies": { "@types/react": "*", "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-aeNmHnBxbi2St0au6VBVC7JXFlhLlOnvIIlePNniyUNAClzmtAUEY8/pBiK3iHjufOlwA+c20/8jngo7xcrg8A=="],
++
+     "@rolldown/pluginutils": ["@rolldown/pluginutils@1.0.0-beta.9", "", {}, "sha512-e9MeMtVWo186sgvFFJOPGy7/d2j2mZhLJIdVW0C/xDluuOvymEATqz6zKsP0ZmXGzQtqlyjz5sC1sYQUoJG98w=="],
+ 
+     "@rollup/rollup-android-arm-eabi": ["@rollup/rollup-android-arm-eabi@4.42.0", "", { "os": "android", "cpu": "arm" }, "sha512-gldmAyS9hpj+H6LpRNlcjQWbuKUtb94lodB9uCz71Jm+7BxK1VIOo7y62tZZwxhA7j1ylv/yQz080L5WkS+LoQ=="],
+@@ -474,6 +484,8 @@
+ 
+     "chownr": ["chownr@3.0.0", "", {}, "sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g=="],
+ 
++    "class-variance-authority": ["class-variance-authority@0.7.1", "", { "dependencies": { "clsx": "^2.1.1" } }, "sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg=="],
++
+     "clsx": ["clsx@2.1.1", "", {}, "sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA=="],
+ 
+     "color-convert": ["color-convert@2.0.1", "", { "dependencies": { "color-name": "~1.1.4" } }, "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ=="],
+@@ -712,6 +724,8 @@
+ 
+     "lru-cache": ["lru-cache@5.1.1", "", { "dependencies": { "yallist": "^3.0.2" } }, "sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w=="],
+ 
++    "lucide-react": ["lucide-react@0.536.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-2PgvNa9v+qz4Jt/ni8vPLt4jwoFybXHuubQT8fv4iCW5TjDxkbZjNZZHa485ad73NSEn/jdsEtU57eE1g+ma8A=="],
++
+     "lz-string": ["lz-string@1.5.0", "", { "bin": { "lz-string": "bin/bin.js" } }, "sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ=="],
+ 
+     "magic-string": ["magic-string@0.30.17", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0" } }, "sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA=="],
+@@ -850,6 +864,8 @@
+ 
+     "symbol-tree": ["symbol-tree@3.2.4", "", {}, "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw=="],
+ 
++    "tailwind-merge": ["tailwind-merge@3.3.1", "", {}, "sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g=="],
++
+     "tailwindcss": ["tailwindcss@4.1.8", "", {}, "sha512-kjeW8gjdxasbmFKpVGrGd5T4i40mV5J2Rasw48QARfYeQ8YS9x02ON9SFWax3Qf616rt4Cp3nVNIj6Hd1mP3og=="],
+ 
+     "tapable": ["tapable@2.2.2", "", {}, "sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg=="],
+@@ -890,6 +906,8 @@
+ 
+     "tsx": ["tsx@4.19.4", "", { "dependencies": { "esbuild": "~0.25.0", "get-tsconfig": "^4.7.5" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "bin": { "tsx": "dist/cli.mjs" } }, "sha512-gK5GVzDkJK1SI1zwHf32Mqxf2tSJkNx+eYcNly5+nHvWqXUJYUkWBQtKauoESz3ymezAI++ZwT855x5p5eop+Q=="],
+ 
++    "tw-animate-css": ["tw-animate-css@1.3.6", "", {}, "sha512-9dy0R9UsYEGmgf26L8UcHiLmSFTHa9+D7+dAt/G/sF5dCnPePZbfgDYinc7/UzAM7g/baVrmS6m9yEpU46d+LA=="],
++
+     "type-check": ["type-check@0.4.0", "", { "dependencies": { "prelude-ls": "^1.2.1" } }, "sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew=="],
+ 
+     "typescript": ["typescript@5.8.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ=="],
+diff --git a/frontend/diff.txt b/frontend/diff.txt
+index 9cf1475..77f4b01 100644
+--- a/frontend/diff.txt
++++ b/frontend/diff.txt
+@@ -1,139 +0,0 @@
+-diff --git a/diff.txt b/diff.txt
+-new file mode 100644
+-index 0000000..e69de29
+-diff --git a/frontend/src/components/Auctions/AuctionCard.tsx b/frontend/src/components/Auctions/AuctionCard.tsx
+-index 84b79bc..dbac5ab 100644
+---- a/frontend/src/components/Auctions/AuctionCard.tsx
+-+++ b/frontend/src/components/Auctions/AuctionCard.tsx
+-@@ -2,10 +2,11 @@ import { Link } from '@tanstack/react-router'
+- import CountdownTimer from './CountdownTimer'
+- 
+- interface AuctionCardProps {
+--  auction: any
+-+  auction: any,
+-+  isLoading: boolean,
+- }
+- 
+--const AuctionCard = ({ auction }: AuctionCardProps) => {
+-+const AuctionCard = ({ auction, isLoading }: AuctionCardProps) => {
+-   console.log('id: ', auction.id)
+-   return (
+-     <>
+-@@ -13,18 +14,22 @@ const AuctionCard = ({ auction }: AuctionCardProps) => {
+-         to="/"
+-         className="p-2 rounded-md bg-gray-200/20 backdrop-blur-md group"
+-       >
+--        <div className="relative w-full bg-gray-200 aspect-video rounded-lg overflow-hidden">
+-+        <div className="relative w-full bg-gray-200 aspect-[16/10] rounded-lg overflow-hidden">
+-           <img
+-             src={auction.imageUrl}
+-             alt={auction.imageUrl}
+--            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out"
+-+            className={`object-cover w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out ${isLoading ? "opacity-0 scale-110": "opacity-100 scale-100"}`}
+-+
+-           />
+-+          <div className="absolute bottom-2 left-2">
+-+            <CountdownTimer auctionEnd={auction.auctionEnd} />
+-+          </div>
+-         </div>
+-         <div className="flex justify-between items-center mt-4">
+-           <h3 className="text-gray-">{auction.make}</h3>
+-           <p className="font-semibold text-sm">{auction.year}</p>
+-         </div>
+--        <CountdownTimer auctionEnd={auction.auctionEnd} />
+-+
+-       </Link>
+-     </>
+-   )
+-diff --git a/frontend/src/components/Auctions/CountdownTimer.tsx b/frontend/src/components/Auctions/CountdownTimer.tsx
+-index 5272b32..3b316c2 100644
+---- a/frontend/src/components/Auctions/CountdownTimer.tsx
+-+++ b/frontend/src/components/Auctions/CountdownTimer.tsx
+-@@ -1,4 +1,4 @@
+--import Countdown from 'react-countdown'
+-+import Countdown, { zeroPad } from 'react-countdown'
+- 
+- interface CountdownProps {
+-   auctionEnd: string
+-@@ -17,20 +17,30 @@ const renderer = ({
+-   seconds: number
+-   completed: boolean
+- }) => {
+--  if (completed) {
+--    // Render a completed state
+--    return <Completionist />
+--  } else {
+--    // Render a countdown
+--    return (
+--      <span>
+--        {days}:{hours}:{minutes}:{seconds}
+--      </span>
+--    )
+--  }
+-+
+-+  return (
+-+    <div className={`border-2 border-white text-white py-1 px-2 rounded-lg flex justify-center ${completed ? 'bg-red-600': (days === 0 && hours < 10)? 'bg-amber-600': 'bg-green-600'}`}>
+-+      {completed ? (
+-+        <span>Auction Finished</span>
+-+      ): (
+-+        <span> {days}:{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</span>
+-+      )}
+-+    </div>
+-+  )
+-+  // if (completed) {
+-+  //   // Render a completed state
+-+  //   return <Completionist />
+-+  // } else {
+-+  //   // Render a countdown
+-+  //   return (
+-+  //     <span>
+-+  //       {days}:{hours}:{minutes}:{seconds}
+-+  //     </span>
+-+  //   )
+-+  // }
+- }
+- 
+--const Completionist = () => <span>You are good to go</span>
+-+// const Completionist = () => <span>You are good to go</span>
+- 
+- const CountdownTimer = ({ auctionEnd }: CountdownProps) => {
+-   return <Countdown date={auctionEnd} renderer={renderer} />
+-diff --git a/frontend/src/components/Auctions/Listings.tsx b/frontend/src/components/Auctions/Listings.tsx
+-index 4d3c75d..36d2f00 100644
+---- a/frontend/src/components/Auctions/Listings.tsx
+-+++ b/frontend/src/components/Auctions/Listings.tsx
+-@@ -3,19 +3,23 @@ import { useSelectAuctions } from '@/hooks/use-select-auctions'
+- 
+- export const Listings = () => {
+-   const pageSize = 10
+--  const { data, isLoading } = useSelectAuctions(pageSize)
+-+  const { data, isLoading } = useSelectAuctions(pageSize);
+-+
+-+
+-+  if (isLoading) {
+-+    return (
+-+      <div className={"flex justify-center items-center"}>
+-+        Loading...
+-+      </div>
+-+    )
+-+  }
+- 
+-   return (
+--    <div className="grid grid-cols-4 gap-6">
+--      {isLoading
+--        ? Array.from({ length: 8 }).map((_, index) => (
+--            <div
+--              key={index}
+--              className="w-full aspect-video bg-gray-300 rounded-lg animate-pulse"
+--            ></div>
+--          ))
+--        : data?.results.map((auction: any) => (
+--            <AuctionCard key={auction.id} auction={auction} />
+-+    <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
+-+
+-+
+-+      {data?.results.map((auction: any) => (
+-+            <AuctionCard isLoading={isLoading} key={auction.id} auction={auction} />
+-           ))}
+-     </div>
+-   )
+diff --git a/frontend/package.json b/frontend/package.json
+index 45089e4..33c6252 100644
+--- a/frontend/package.json
++++ b/frontend/package.json
+@@ -14,6 +14,7 @@
+   },
+   "dependencies": {
+     "@faker-js/faker": "^9.6.0",
++    "@radix-ui/react-slot": "^1.2.3",
+     "@tailwindcss/vite": "^4.0.6",
+     "@tanstack/match-sorter-utils": "^8.19.4",
+     "@tanstack/react-form": "^1.0.0",
+@@ -26,10 +27,14 @@
+     "@tanstack/router-plugin": "^1.114.3",
+     "@tanstack/store": "^0.7.0",
+     "axios": "^1.9.0",
++    "class-variance-authority": "^0.7.1",
++    "clsx": "^2.1.1",
++    "lucide-react": "^0.536.0",
+     "react": "^19.0.0",
+     "react-countdown": "^2.3.6",
+     "react-dom": "^19.0.0",
+     "react-icons": "^5.5.0",
++    "tailwind-merge": "^3.3.1",
+     "tailwindcss": "^4.0.6",
+     "zod": "^3.24.2"
+   },
+@@ -43,6 +48,7 @@
+     "@vitejs/plugin-react": "^4.3.4",
+     "jsdom": "^26.0.0",
+     "prettier": "^3.5.3",
++    "tw-animate-css": "^1.3.6",
+     "typescript": "^5.7.2",
+     "vite": "^6.1.0",
+     "vitest": "^3.0.5",
 diff --git a/frontend/src/components/Auctions/AuctionCard.tsx b/frontend/src/components/Auctions/AuctionCard.tsx
-index 84b79bc..dbac5ab 100644
+index 7306943..98966a6 100644
 --- a/frontend/src/components/Auctions/AuctionCard.tsx
 +++ b/frontend/src/components/Auctions/AuctionCard.tsx
-@@ -2,10 +2,11 @@ import { Link } from '@tanstack/react-router'
- import CountdownTimer from './CountdownTimer'
- 
- interface AuctionCardProps {
--  auction: any
-+  auction: any,
-+  isLoading: boolean,
- }
- 
--const AuctionCard = ({ auction }: AuctionCardProps) => {
-+const AuctionCard = ({ auction, isLoading }: AuctionCardProps) => {
-   console.log('id: ', auction.id)
+@@ -12,7 +12,9 @@ const AuctionCard = ({ auction, isLoading }: AuctionCardProps) => {
    return (
      <>
-@@ -13,18 +14,22 @@ const AuctionCard = ({ auction }: AuctionCardProps) => {
-         to="/"
+       <Link
+-        to="/"
++
++        to={`/auction/$auctionId`}
++        params={{ auctionId: auction.id}}
          className="p-2 rounded-md bg-gray-200/20 backdrop-blur-md group"
        >
--        <div className="relative w-full bg-gray-200 aspect-video rounded-lg overflow-hidden">
-+        <div className="relative w-full bg-gray-200 aspect-[16/10] rounded-lg overflow-hidden">
-           <img
-             src={auction.imageUrl}
-             alt={auction.imageUrl}
--            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out"
-+            className={`object-cover w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out ${isLoading ? "opacity-0 scale-110": "opacity-100 scale-100"}`}
-+
-           />
-+          <div className="absolute bottom-2 left-2">
-+            <CountdownTimer auctionEnd={auction.auctionEnd} />
-+          </div>
-         </div>
-         <div className="flex justify-between items-center mt-4">
-           <h3 className="text-gray-">{auction.make}</h3>
-           <p className="font-semibold text-sm">{auction.year}</p>
-         </div>
--        <CountdownTimer auctionEnd={auction.auctionEnd} />
-+
-       </Link>
-     </>
-   )
-diff --git a/frontend/src/components/Auctions/CountdownTimer.tsx b/frontend/src/components/Auctions/CountdownTimer.tsx
-index 5272b32..3b316c2 100644
---- a/frontend/src/components/Auctions/CountdownTimer.tsx
-+++ b/frontend/src/components/Auctions/CountdownTimer.tsx
-@@ -1,4 +1,4 @@
--import Countdown from 'react-countdown'
-+import Countdown, { zeroPad } from 'react-countdown'
- 
- interface CountdownProps {
-   auctionEnd: string
-@@ -17,20 +17,30 @@ const renderer = ({
-   seconds: number
-   completed: boolean
- }) => {
--  if (completed) {
--    // Render a completed state
--    return <Completionist />
--  } else {
--    // Render a countdown
--    return (
--      <span>
--        {days}:{hours}:{minutes}:{seconds}
--      </span>
--    )
--  }
-+
-+  return (
-+    <div className={`border-2 border-white text-white py-1 px-2 rounded-lg flex justify-center ${completed ? 'bg-red-600': (days === 0 && hours < 10)? 'bg-amber-600': 'bg-green-600'}`}>
-+      {completed ? (
-+        <span>Auction Finished</span>
-+      ): (
-+        <span> {days}:{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</span>
-+      )}
-+    </div>
-+  )
-+  // if (completed) {
-+  //   // Render a completed state
-+  //   return <Completionist />
-+  // } else {
-+  //   // Render a countdown
-+  //   return (
-+  //     <span>
-+  //       {days}:{hours}:{minutes}:{seconds}
-+  //     </span>
-+  //   )
-+  // }
- }
- 
--const Completionist = () => <span>You are good to go</span>
-+// const Completionist = () => <span>You are good to go</span>
- 
- const CountdownTimer = ({ auctionEnd }: CountdownProps) => {
-   return <Countdown date={auctionEnd} renderer={renderer} />
+         <div className="relative w-full bg-gray-200 aspect-[16/10] rounded-lg overflow-hidden">
 diff --git a/frontend/src/components/Auctions/Listings.tsx b/frontend/src/components/Auctions/Listings.tsx
-index 4d3c75d..36d2f00 100644
+index eaf4b9f..1f82373 100644
 --- a/frontend/src/components/Auctions/Listings.tsx
 +++ b/frontend/src/components/Auctions/Listings.tsx
-@@ -3,19 +3,23 @@ import { useSelectAuctions } from '@/hooks/use-select-auctions'
+@@ -1,10 +1,16 @@
+ import AuctionCard from './AuctionCard'
+ import type { Auction } from '../../../types'
+ import { useSelectAuctions } from '@/hooks/use-select-auctions'
++import { PaginationButton } from '@/components/pagination-button.tsx';
  
- export const Listings = () => {
+-export const Listings = () => {
++interface ListingsProps {
++  page: number;
++}
++
++export const Listings = ({page} : ListingsProps) => {
    const pageSize = 10
--  const { data, isLoading } = useSelectAuctions(pageSize)
-+  const { data, isLoading } = useSelectAuctions(pageSize);
+-  const { data, isLoading } = useSelectAuctions(pageSize);
 +
-+
-+  if (isLoading) {
-+    return (
-+      <div className={"flex justify-center items-center"}>
-+        Loading...
-+      </div>
-+    )
-+  }
++  const { data, isLoading } = useSelectAuctions(pageSize, page);
+ 
+ 
+   if (isLoading) {
+@@ -18,12 +24,23 @@ export const Listings = () => {
+ 
  
    return (
--    <div className="grid grid-cols-4 gap-6">
--      {isLoading
--        ? Array.from({ length: 8 }).map((_, index) => (
--            <div
--              key={index}
--              className="w-full aspect-video bg-gray-300 rounded-lg animate-pulse"
--            ></div>
--          ))
--        : data?.results.map((auction: any) => (
--            <AuctionCard key={auction.id} auction={auction} />
-+    <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
+-    <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
++    <> <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
+ 
+ 
+-      {data?.results.map((auction: Auction) => (
+-            <AuctionCard isLoading={isLoading} key={auction.id} auction={auction} />
+-          ))}
++      {data && data.results.map((auction: Auction) => (
++        <AuctionCard isLoading={isLoading} key={auction.id} auction={auction} />
++      ))}
 +
+     </div>
++      <div className="my-10">
++        {data && (
++          <PaginationButton page={page}  auctions={data.results}  />
 +
-+      {data?.results.map((auction: any) => (
-+            <AuctionCard isLoading={isLoading} key={auction.id} auction={auction} />
-           ))}
++        )}
++
++      </div>
++
++    </>
++
+   )
+ }
+diff --git a/frontend/src/components/pagination-button.tsx b/frontend/src/components/pagination-button.tsx
+index e69de29..9b8d925 100644
+--- a/frontend/src/components/pagination-button.tsx
++++ b/frontend/src/components/pagination-button.tsx
+@@ -0,0 +1,41 @@
++import type { Auction } from '../../types'
++import {
++  Pagination,
++  PaginationContent,
++  PaginationItem,
++  PaginationLink,
++  PaginationNext,
++  PaginationPrevious,
++} from "@/components/ui/pagination";
++import { Route } from '@/routes'
++
++interface  PaginationButtonProps {
++  auctions: Array<Auction>;
++  page: number;
++
++}
++
++export const PaginationButton = ({auctions, page}: PaginationButtonProps) => {
++  const navigate = Route.useNavigate();
++  return (
++    <Pagination>
++      <PaginationContent>
++        <PaginationItem>
++          <PaginationPrevious href="#" />
++        </PaginationItem>
++        <PaginationItem>
++          {auctions.map((item: Auction, index: number) => (
++            <PaginationLink onClick={() => navigate({ search: prev => ({ ...prev, page: index + 1}) })}   key={item.id}    >{index + 1}</PaginationLink>
++
++          ))}
++
++        </PaginationItem>
++
++        <PaginationItem>
++          <PaginationNext onClick={() => navigate({ search: prev => ({ ...prev, page: page + 1}) })} href="#" />
++        </PaginationItem>
++      </PaginationContent>
++    </Pagination>
++  )
++}
++
+diff --git a/frontend/src/hooks/use-select-auctions.ts b/frontend/src/hooks/use-select-auctions.ts
+index d64c9ea..d94b60c 100644
+--- a/frontend/src/hooks/use-select-auctions.ts
++++ b/frontend/src/hooks/use-select-auctions.ts
+@@ -3,12 +3,12 @@ import axios from 'axios'
+ import type { Auction, PagedResult } from '../../types'
+ import { BackendAppUrl } from '@/lib/util'
+ 
+-export const useSelectAuctions = (pageSize: number) => {
++export const useSelectAuctions = (pageSize: number, page: number) => {
+   return useQuery<PagedResult<Auction>>({
+-    queryKey: ['auctions', pageSize],
++    queryKey: ['auctions', pageSize, page],
+     queryFn: async () => {
+       const response = await axios.get(
+-        `${BackendAppUrl}/search?pageSize=${pageSize}`,
++        `${BackendAppUrl}/search?pageNumber=${page}&pageSize=${pageSize}`,
+       )
+ 
+       if (response.status !== 200) {
+diff --git a/frontend/src/routeTree.gen.ts b/frontend/src/routeTree.gen.ts
+index 5e68293..0f8436c 100644
+--- a/frontend/src/routeTree.gen.ts
++++ b/frontend/src/routeTree.gen.ts
+@@ -12,6 +12,7 @@
+ 
+ import { Route as rootRoute } from './routes/__root'
+ import { Route as IndexImport } from './routes/index'
++import { Route as AuctionAuctionIdImport } from './routes/auction/$auctionId'
+ 
+ // Create/Update Routes
+ 
+@@ -21,6 +22,12 @@ const IndexRoute = IndexImport.update({
+   getParentRoute: () => rootRoute,
+ } as any)
+ 
++const AuctionAuctionIdRoute = AuctionAuctionIdImport.update({
++  id: '/auction/$auctionId',
++  path: '/auction/$auctionId',
++  getParentRoute: () => rootRoute,
++} as any)
++
+ // Populate the FileRoutesByPath interface
+ 
+ declare module '@tanstack/react-router' {
+@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
+       preLoaderRoute: typeof IndexImport
+       parentRoute: typeof rootRoute
+     }
++    '/auction/$auctionId': {
++      id: '/auction/$auctionId'
++      path: '/auction/$auctionId'
++      fullPath: '/auction/$auctionId'
++      preLoaderRoute: typeof AuctionAuctionIdImport
++      parentRoute: typeof rootRoute
++    }
+   }
+ }
+ 
+@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
+ 
+ export interface FileRoutesByFullPath {
+   '/': typeof IndexRoute
++  '/auction/$auctionId': typeof AuctionAuctionIdRoute
+ }
+ 
+ export interface FileRoutesByTo {
+   '/': typeof IndexRoute
++  '/auction/$auctionId': typeof AuctionAuctionIdRoute
+ }
+ 
+ export interface FileRoutesById {
+   __root__: typeof rootRoute
+   '/': typeof IndexRoute
++  '/auction/$auctionId': typeof AuctionAuctionIdRoute
+ }
+ 
+ export interface FileRouteTypes {
+   fileRoutesByFullPath: FileRoutesByFullPath
+-  fullPaths: '/'
++  fullPaths: '/' | '/auction/$auctionId'
+   fileRoutesByTo: FileRoutesByTo
+-  to: '/'
+-  id: '__root__' | '/'
++  to: '/' | '/auction/$auctionId'
++  id: '__root__' | '/' | '/auction/$auctionId'
+   fileRoutesById: FileRoutesById
+ }
+ 
+ export interface RootRouteChildren {
+   IndexRoute: typeof IndexRoute
++  AuctionAuctionIdRoute: typeof AuctionAuctionIdRoute
+ }
+ 
+ const rootRouteChildren: RootRouteChildren = {
+   IndexRoute: IndexRoute,
++  AuctionAuctionIdRoute: AuctionAuctionIdRoute,
+ }
+ 
+ export const routeTree = rootRoute
+@@ -77,11 +96,15 @@ export const routeTree = rootRoute
+     "__root__": {
+       "filePath": "__root.tsx",
+       "children": [
+-        "/"
++        "/",
++        "/auction/$auctionId"
+       ]
+     },
+     "/": {
+       "filePath": "index.tsx"
++    },
++    "/auction/$auctionId": {
++      "filePath": "auction/$auctionId.tsx"
+     }
+   }
+ }
+diff --git a/frontend/src/routes/index.tsx b/frontend/src/routes/index.tsx
+index 1206bb6..b8040eb 100644
+--- a/frontend/src/routes/index.tsx
++++ b/frontend/src/routes/index.tsx
+@@ -4,13 +4,16 @@ import { Listings } from '@/components/Auctions/Listings'
+ 
+ export const Route = createFileRoute('/')({
+   component: App,
++  validateSearch: (search) => ({page: search.page ? Number(search.page): 1}),
+ })
+ 
+ function App() {
++  const { page } = Route.useSearch();
++
+ 
+   return (
+     <div>
+-      <Listings />
++      <Listings page={page} />
      </div>
    )
+ }
+diff --git a/frontend/src/styles.css b/frontend/src/styles.css
+index 73b4907..65d3cee 100644
+--- a/frontend/src/styles.css
++++ b/frontend/src/styles.css
+@@ -1,4 +1,7 @@
+ @import 'tailwindcss';
++@import "tw-animate-css";
++
++@custom-variant dark (&:is(.dark *));
+ 
+ body {
+   @apply m-0 bg-zinc-900 text-zinc-50;
+@@ -13,3 +16,217 @@ code {
+   font-family:
+     source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+ }
++
++@theme inline {
++  --radius-sm:
++    calc(var(--radius) - 4px);
++  --radius-md:
++    calc(var(--radius) - 2px);
++  --radius-lg:
++    var(--radius);
++  --radius-xl:
++    calc(var(--radius) + 4px);
++  --color-background:
++    var(--background);
++  --color-foreground:
++    var(--foreground);
++  --color-card:
++    var(--card);
++  --color-card-foreground:
++    var(--card-foreground);
++  --color-popover:
++    var(--popover);
++  --color-popover-foreground:
++    var(--popover-foreground);
++  --color-primary:
++    var(--primary);
++  --color-primary-foreground:
++    var(--primary-foreground);
++  --color-secondary:
++    var(--secondary);
++  --color-secondary-foreground:
++    var(--secondary-foreground);
++  --color-muted:
++    var(--muted);
++  --color-muted-foreground:
++    var(--muted-foreground);
++  --color-accent:
++    var(--accent);
++  --color-accent-foreground:
++    var(--accent-foreground);
++  --color-destructive:
++    var(--destructive);
++  --color-border:
++    var(--border);
++  --color-input:
++    var(--input);
++  --color-ring:
++    var(--ring);
++  --color-chart-1:
++    var(--chart-1);
++  --color-chart-2:
++    var(--chart-2);
++  --color-chart-3:
++    var(--chart-3);
++  --color-chart-4:
++    var(--chart-4);
++  --color-chart-5:
++    var(--chart-5);
++  --color-sidebar:
++    var(--sidebar);
++  --color-sidebar-foreground:
++    var(--sidebar-foreground);
++  --color-sidebar-primary:
++    var(--sidebar-primary);
++  --color-sidebar-primary-foreground:
++    var(--sidebar-primary-foreground);
++  --color-sidebar-accent:
++    var(--sidebar-accent);
++  --color-sidebar-accent-foreground:
++    var(--sidebar-accent-foreground);
++  --color-sidebar-border:
++    var(--sidebar-border);
++  --color-sidebar-ring:
++    var(--sidebar-ring);
++}
++
++:root {
++  --radius:
++    0.625rem;
++  --background:
++    oklch(1 0 0);
++  --foreground:
++    oklch(0.145 0 0);
++  --card:
++    oklch(1 0 0);
++  --card-foreground:
++    oklch(0.145 0 0);
++  --popover:
++    oklch(1 0 0);
++  --popover-foreground:
++    oklch(0.145 0 0);
++  --primary:
++    oklch(0.205 0 0);
++  --primary-foreground:
++    oklch(0.985 0 0);
++  --secondary:
++    oklch(0.97 0 0);
++  --secondary-foreground:
++    oklch(0.205 0 0);
++  --muted:
++    oklch(0.97 0 0);
++  --muted-foreground:
++    oklch(0.556 0 0);
++  --accent:
++    oklch(0.97 0 0);
++  --accent-foreground:
++    oklch(0.205 0 0);
++  --destructive:
++    oklch(0.577 0.245 27.325);
++  --border:
++    oklch(0.922 0 0);
++  --input:
++    oklch(0.922 0 0);
++  --ring:
++    oklch(0.708 0 0);
++  --chart-1:
++    oklch(0.646 0.222 41.116);
++  --chart-2:
++    oklch(0.6 0.118 184.704);
++  --chart-3:
++    oklch(0.398 0.07 227.392);
++  --chart-4:
++    oklch(0.828 0.189 84.429);
++  --chart-5:
++    oklch(0.769 0.188 70.08);
++  --sidebar:
++    oklch(0.985 0 0);
++  --sidebar-foreground:
++    oklch(0.145 0 0);
++  --sidebar-primary:
++    oklch(0.205 0 0);
++  --sidebar-primary-foreground:
++    oklch(0.985 0 0);
++  --sidebar-accent:
++    oklch(0.97 0 0);
++  --sidebar-accent-foreground:
++    oklch(0.205 0 0);
++  --sidebar-border:
++    oklch(0.922 0 0);
++  --sidebar-ring:
++    oklch(0.708 0 0);
++}
++
++.dark {
++  --background:
++    oklch(0.145 0 0);
++  --foreground:
++    oklch(0.985 0 0);
++  --card:
++    oklch(0.205 0 0);
++  --card-foreground:
++    oklch(0.985 0 0);
++  --popover:
++    oklch(0.205 0 0);
++  --popover-foreground:
++    oklch(0.985 0 0);
++  --primary:
++    oklch(0.922 0 0);
++  --primary-foreground:
++    oklch(0.205 0 0);
++  --secondary:
++    oklch(0.269 0 0);
++  --secondary-foreground:
++    oklch(0.985 0 0);
++  --muted:
++    oklch(0.269 0 0);
++  --muted-foreground:
++    oklch(0.708 0 0);
++  --accent:
++    oklch(0.269 0 0);
++  --accent-foreground:
++    oklch(0.985 0 0);
++  --destructive:
++    oklch(0.704 0.191 22.216);
++  --border:
++    oklch(1 0 0 / 10%);
++  --input:
++    oklch(1 0 0 / 15%);
++  --ring:
++    oklch(0.556 0 0);
++  --chart-1:
++    oklch(0.488 0.243 264.376);
++  --chart-2:
++    oklch(0.696 0.17 162.48);
++  --chart-3:
++    oklch(0.769 0.188 70.08);
++  --chart-4:
++    oklch(0.627 0.265 303.9);
++  --chart-5:
++    oklch(0.645 0.246 16.439);
++  --sidebar:
++    oklch(0.205 0 0);
++  --sidebar-foreground:
++    oklch(0.985 0 0);
++  --sidebar-primary:
++    oklch(0.488 0.243 264.376);
++  --sidebar-primary-foreground:
++    oklch(0.985 0 0);
++  --sidebar-accent:
++    oklch(0.269 0 0);
++  --sidebar-accent-foreground:
++    oklch(0.985 0 0);
++  --sidebar-border:
++    oklch(1 0 0 / 10%);
++  --sidebar-ring:
++    oklch(0.556 0 0);
++}
++
++@layer base {
++  * {
++    @apply border-border outline-ring/50;
++  }
++  body {
++    @apply bg-background text-foreground;
++  }
++}
