@@ -3,19 +3,23 @@ import { useSelectAuctions } from '@/hooks/use-select-auctions'
 
 export const Listings = () => {
   const pageSize = 10
-  const { data, isLoading } = useSelectAuctions(pageSize)
+  const { data, isLoading } = useSelectAuctions(pageSize);
+
+
+  if (isLoading) {
+    return (
+      <div className={"flex justify-center items-center"}>
+        Loading...
+      </div>
+    )
+  }
 
   return (
-    <div className="grid grid-cols-4 gap-6">
-      {isLoading
-        ? Array.from({ length: 8 }).map((_, index) => (
-            <div
-              key={index}
-              className="w-full aspect-video bg-gray-300 rounded-lg animate-pulse"
-            ></div>
-          ))
-        : data?.results.map((auction: any) => (
-            <AuctionCard key={auction.id} auction={auction} />
+    <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+
+      {data?.results.map((auction: any) => (
+            <AuctionCard isLoading={isLoading} key={auction.id} auction={auction} />
           ))}
     </div>
   )
