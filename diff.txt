@@ -1,0 +1,145 @@
+diff --git a/frontend/diff.txt b/frontend/diff.txt
+new file mode 100644
+index 0000000..9cf1475
+--- /dev/null
++++ b/frontend/diff.txt
+@@ -0,0 +1,139 @@
++diff --git a/diff.txt b/diff.txt
++new file mode 100644
++index 0000000..e69de29
++diff --git a/frontend/src/components/Auctions/AuctionCard.tsx b/frontend/src/components/Auctions/AuctionCard.tsx
++index 84b79bc..dbac5ab 100644
++--- a/frontend/src/components/Auctions/AuctionCard.tsx
+++++ b/frontend/src/components/Auctions/AuctionCard.tsx
++@@ -2,10 +2,11 @@ import { Link } from '@tanstack/react-router'
++ import CountdownTimer from './CountdownTimer'
++ 
++ interface AuctionCardProps {
++-  auction: any
+++  auction: any,
+++  isLoading: boolean,
++ }
++ 
++-const AuctionCard = ({ auction }: AuctionCardProps) => {
+++const AuctionCard = ({ auction, isLoading }: AuctionCardProps) => {
++   console.log('id: ', auction.id)
++   return (
++     <>
++@@ -13,18 +14,22 @@ const AuctionCard = ({ auction }: AuctionCardProps) => {
++         to="/"
++         className="p-2 rounded-md bg-gray-200/20 backdrop-blur-md group"
++       >
++-        <div className="relative w-full bg-gray-200 aspect-video rounded-lg overflow-hidden">
+++        <div className="relative w-full bg-gray-200 aspect-[16/10] rounded-lg overflow-hidden">
++           <img
++             src={auction.imageUrl}
++             alt={auction.imageUrl}
++-            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out"
+++            className={`object-cover w-full h-full group-hover:scale-110 transition-transform duration-300 ease-in-out ${isLoading ? "opacity-0 scale-110": "opacity-100 scale-100"}`}
+++
++           />
+++          <div className="absolute bottom-2 left-2">
+++            <CountdownTimer auctionEnd={auction.auctionEnd} />
+++          </div>
++         </div>
++         <div className="flex justify-between items-center mt-4">
++           <h3 className="text-gray-">{auction.make}</h3>
++           <p className="font-semibold text-sm">{auction.year}</p>
++         </div>
++-        <CountdownTimer auctionEnd={auction.auctionEnd} />
+++
++       </Link>
++     </>
++   )
++diff --git a/frontend/src/components/Auctions/CountdownTimer.tsx b/frontend/src/components/Auctions/CountdownTimer.tsx
++index 5272b32..3b316c2 100644
++--- a/frontend/src/components/Auctions/CountdownTimer.tsx
+++++ b/frontend/src/components/Auctions/CountdownTimer.tsx
++@@ -1,4 +1,4 @@
++-import Countdown from 'react-countdown'
+++import Countdown, { zeroPad } from 'react-countdown'
++ 
++ interface CountdownProps {
++   auctionEnd: string
++@@ -17,20 +17,30 @@ const renderer = ({
++   seconds: number
++   completed: boolean
++ }) => {
++-  if (completed) {
++-    // Render a completed state
++-    return <Completionist />
++-  } else {
++-    // Render a countdown
++-    return (
++-      <span>
++-        {days}:{hours}:{minutes}:{seconds}
++-      </span>
++-    )
++-  }
+++
+++  return (
+++    <div className={`border-2 border-white text-white py-1 px-2 rounded-lg flex justify-center ${completed ? 'bg-red-600': (days === 0 && hours < 10)? 'bg-amber-600': 'bg-green-600'}`}>
+++      {completed ? (
+++        <span>Auction Finished</span>
+++      ): (
+++        <span> {days}:{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</span>
+++      )}
+++    </div>
+++  )
+++  // if (completed) {
+++  //   // Render a completed state
+++  //   return <Completionist />
+++  // } else {
+++  //   // Render a countdown
+++  //   return (
+++  //     <span>
+++  //       {days}:{hours}:{minutes}:{seconds}
+++  //     </span>
+++  //   )
+++  // }
++ }
++ 
++-const Completionist = () => <span>You are good to go</span>
+++// const Completionist = () => <span>You are good to go</span>
++ 
++ const CountdownTimer = ({ auctionEnd }: CountdownProps) => {
++   return <Countdown date={auctionEnd} renderer={renderer} />
++diff --git a/frontend/src/components/Auctions/Listings.tsx b/frontend/src/components/Auctions/Listings.tsx
++index 4d3c75d..36d2f00 100644
++--- a/frontend/src/components/Auctions/Listings.tsx
+++++ b/frontend/src/components/Auctions/Listings.tsx
++@@ -3,19 +3,23 @@ import { useSelectAuctions } from '@/hooks/use-select-auctions'
++ 
++ export const Listings = () => {
++   const pageSize = 10
++-  const { data, isLoading } = useSelectAuctions(pageSize)
+++  const { data, isLoading } = useSelectAuctions(pageSize);
+++
+++
+++  if (isLoading) {
+++    return (
+++      <div className={"flex justify-center items-center"}>
+++        Loading...
+++      </div>
+++    )
+++  }
++ 
++   return (
++-    <div className="grid grid-cols-4 gap-6">
++-      {isLoading
++-        ? Array.from({ length: 8 }).map((_, index) => (
++-            <div
++-              key={index}
++-              className="w-full aspect-video bg-gray-300 rounded-lg animate-pulse"
++-            ></div>
++-          ))
++-        : data?.results.map((auction: any) => (
++-            <AuctionCard key={auction.id} auction={auction} />
+++    <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
+++
+++
+++      {data?.results.map((auction: any) => (
+++            <AuctionCard isLoading={isLoading} key={auction.id} auction={auction} />
++           ))}
++     </div>
++   )
