@@ -20,7 +20,7 @@ namespace AuctionService.Controllers
         private readonly AuctionDbContext _context;
         private readonly IMapper _mapper;
         private readonly IPublishEndpoint _publishEndPoint; 
-        public AuctionController(AuctionDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
+        public AuctionController(AuctionDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint) 
         {
             _context = context;
             _mapper = mapper;
@@ -67,8 +67,8 @@ namespace AuctionService.Controllers
             var auction = _mapper.Map<Auction>(auctionDto);
             
 
-            auction.Seller = User.Identity.Name; 
-            Console.WriteLine("user name: " + User.Identity.Name); 
+            auction.Seller = User.Identity?.Name; 
+            Console.WriteLine("user name: " + User.Identity?.Name); 
             _context.Auctions.Add(auction);
 
             var newAuction = _mapper.Map<AuctionDto>(auction); 

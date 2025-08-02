@@ -1,4 +1,4 @@
-using Duende.IdentityServer;
+
 using IdentityService.Data;
 using IdentityService.Models;
 using IdentityService.Services;
@@ -29,6 +29,10 @@ internal static class HostingExtensions
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
+                if (builder.Environment.IsEnvironment("docker"))
+                {
+                    options.IssuerUri = "http://localhost:5001"; 
+                }
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)

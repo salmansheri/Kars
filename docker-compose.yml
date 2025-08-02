@@ -10,7 +10,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - RabbitMq__Host=rabbitmq
       - ConnectionStrings__DefaultConnection=Server=db:5432;Database=AuctionDB;User Id=postgres;Password=log
-      - IdentityServiceUrl=https://identity-svc
+      - IdentityServiceUrl=http://identity-svc
       
     ports:
       - 5198:80
@@ -19,7 +19,7 @@ services:
       db:
           condition: service_healthy
       rabbitmq:
-          condition: service_started
+          condition: service_healthy
 
     networks:
       - rabbitnet
@@ -44,7 +44,7 @@ services:
       mongodb:
         condition: service_healthy
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
     
     networks:
       - rabbitnet
@@ -56,7 +56,7 @@ services:
       dockerfile: IdentityService/Dockerfile
 
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Server=db:5432;Database=IdentityDB;User Id=postgres;Password=log
       
@@ -170,11 +170,12 @@ services:
       - 15672:15672
     
     healthcheck:
-      test: ["CMD","executable", "arg"]
-      interval: 1m30s
-      timeout: 30s
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 5s
+      timeout: 5s
       retries: 5
-      start_period: 30s
+      
+      
 
     environment:
       RABBITMQ_DEFAULT_USER: guest
