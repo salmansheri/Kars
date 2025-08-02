@@ -119,7 +119,7 @@ namespace AuctionService.Controllers
                 return BadRequest("Could not update auction");
             }
 
-            return Ok();
+            return Ok(_mapper.Map<AuctionDto>(auction));
 
         }
 
@@ -139,6 +139,8 @@ namespace AuctionService.Controllers
 
             await _publishEndPoint.Publish(new AuctionDeleted{ Id = auction.Id.ToString()}); 
             var result = await _context.SaveChangesAsync() > 0;
+            
+            Console.WriteLine($"Result:{result}");
 
 
 
