@@ -12,27 +12,50 @@ import { Route } from '@/routes'
 interface  PaginationButtonProps {
   auctions: Array<Auction>;
   page: number;
+  pageSize: number
 
 }
 
-export const PaginationButton = ({auctions, page}: PaginationButtonProps) => {
+export const PaginationButton = ({auctions, page, pageSize}: PaginationButtonProps) => {
   const navigate = Route.useNavigate();
+  const totalAuctionCount = auctions.length;
+  const totalPages = Math.ceil(totalAuctionCount / pageSize);
+
+  const handlePaginationClick = (index: number) => {
+    navigate({ search: prev => ({...prev, page: index + 1})});
+
+  }
+
+  const handleNextPageClick = () => {
+    navigate({search: prev => ({...prev, page: page + 1})});
+  }
+
+  const handlePreviousPageClick = () => {
+    if (page > 1) {
+      navigate({search: prev => ({...prev, page: page - 1})});
+
+    }
+
+  }
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationPrevious aria-disabled={page === 1} href="#" onClick={handlePreviousPageClick} />
         </PaginationItem>
         <PaginationItem>
-          {auctions.map((item: Auction, index: number) => (
-            <PaginationLink onClick={() => navigate({ search: prev => ({ ...prev, page: index + 1}) })}   key={item.id}    >{index + 1}</PaginationLink>
+          {Array.from({length: totalPages }).map((_, index: number) => (
+            <PaginationLink onClick={() => handlePaginationClick(index)}   key={index}    >{index + 1}</PaginationLink>
 
           ))}
 
+
+
+
         </PaginationItem>
 
         <PaginationItem>
-          <PaginationNext onClick={() => navigate({ search: prev => ({ ...prev, page: page + 1}) })} href="#" />
+          <PaginationNext onClick={handleNextPageClick} href="#" />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

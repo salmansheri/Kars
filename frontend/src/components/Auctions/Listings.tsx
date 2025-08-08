@@ -21,10 +21,14 @@ export const Listings = ({page} : ListingsProps) => {
     )
   }
 
+  console.log("data" + data);
+
 
 
   return (
-    <> <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <>
+
+     <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-6">
 
 
       {data && data.results.map((auction: Auction) => (
@@ -34,7 +38,7 @@ export const Listings = ({page} : ListingsProps) => {
     </div>
       <div className="my-10">
         {data && (
-          <PaginationButton page={page}  auctions={data.results}  />
+          <PaginationButton page={page}  auctions={data.results} pageSize={pageSize}  />
 
         )}
 

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import type { Auction, PagedResult } from '../../types'
-import { BackendAppUrl } from '@/lib/util'
+import { BackendAppUrl } from '@/lib/utils'
 
 export const useSelectAuctions = (pageSize: number, page: number) => {
   return useQuery<PagedResult<Auction>>({
